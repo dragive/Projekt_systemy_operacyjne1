@@ -1,30 +1,53 @@
+/**
+ * @file main.c
+ * @author Maciej Fender
+ * @brief Main file of the program
+ * @version 0.1
+ * @date 2021-03-20
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
 #include <stdio.h>
 #include <unistd.h>
+#include <string.h>
+#include "singleLine.h"
+/**
+ * @brief Global variable storing name of input file
+ */
 char* input_file;
+/**
+ * @brief Global variable storing name of output file
+ */
 char* output_file;
 
+/**
+ * @brief Function gets arguments from start of the program, validate and assigns to propriete global variable.
+ *
+ * @param argc Number of arguments
+ * @param argv The array of arguments.
+ * @return int Indicator whether process of parsing arugments gone well. When it's ok then 0, else something gone wrong.
+ * @author MF
+ */
+int parse_arguments(int argc, char *argv[]){
+    if( argc < 3 ) {
+        return 3-argc;
+    }
+    else if (argc >3){
+        return argc;
+    }
+    else{
+        strcpy(input_file,argv[1]);
+        strcpy(output_file,argv[2]);
+    }
+    return 0;
 
-int parse_arguments(int argc, char *argv[]);
+}
 
-int input_file_open_to_read();
-
-int output_file_open_to_write();
-
-char* get_line_from_file(int file_link);
-
-int check_line_format(char* input_line);
-
-char ** split_command_line(char* input_line);
-
+/**TODO*/
 int get_local_time();
 
-int convert_data_format_from_file();
-
-void sort_input_lines(char**);
-
-int compare_two_lines(char* first_line, char* second_line);
-
 int main(int argc, char *argv[]){
-    
+    get_new_character_from_file(2137);
 
 }
