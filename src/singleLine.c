@@ -1,5 +1,5 @@
 /**
- * @file singleLine.h
+ * @file singleLine.c
  * @author Maciej Fender
  * @brief singleLine is meant to handle reading line from file
  * @version 0.1
@@ -18,63 +18,43 @@
  */
 typedef struct singleLine
 {
-    char * pointer_to_value;    /** Pointer to table of chars read from file */
-    int size_max;               /** Max size which can be currently stored */
-    int size_current;           /** Current number of characters, e.g. 0 if there's nothing and 1 if there's 1 character*/
+    char * value;       /** Pointer to table of chars read from file */
+    int size_max;       /** Max size which can be currently stored */
+    int size_current;   /** Current number of characters, e.g. 0 if there's nothing and 1 if there's 1 character*/
 } singleLine;
 
-
-//#TODO
-/*
-add function to add
-                realloc with bigger buffor (used in add function)
-
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-1. lista jednokierunkowa jako lista komend
-    @assigned Krzysiek
-
-2. listra structów
-    czas rozpoczecia 12 30
-    czas do dopalenia 3000 s
-    structy
-    parametr
-     |
-    \/
-    czas rozpoczecia 12 31
-    czas do dopalenia 60 s
-    structy
-    parametr
-3. sortowanie listy komend wzgledem czasu
-4.
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/** \brief Function extends buffor in single line
+ *
+ * \param sl singleLine struct object which buffor will be extended
+ * \author MF
+ */
+void extend_buffor_singleLine(singleLine* sl){
+    char * temp = (char* ) malloc(sizeof(char)*sl.size_max+10);
+    for(int i =0;i<sl.size_max){
+        temp[i] = sl.value[i];
+    }
+    free(sl.value);
+    sl.value = temp;
+}
+/** \brief Function adds character to singleLine
+ *
+ * \param sl singleLine struct object which line will be written to from file
+ * \param c character which will be added to singleLine
+ * \author MF
+ */
+void add_char_to_singleLine(singleLine * sl,char c){
+    if(sl == NULL){
+        sl = (singleLine*) malloc(sizeof(singleLine));
+    }
+    if(sl.value == NULL){
+        sl.size_max = 10;
+        sl.size_current = 0;
+        sl.value = (char*) malloc(sizeof(char)*sl.size_max);
+        sl.value[sl.size_current]='\0';
+    }
+    if(sl.size_current ==  sl.size_max-1){
+        extend_buffor_singleLine(sl);
+    }
+    sl.value[sl.size_current++] = c;
+    sl.value[sl.size_current] = '\0';
+}

@@ -31,10 +31,14 @@ int open_to_read_file(const char *  file_name);
  * @author MF
  */
 int open_to_append_file(const char *  file_name);
-/*
-Krzysiek jeżeli masz czas to też proszę zobacz tą funkcję
 
-*/
+/** \brief Read line from file
+ *
+ * \param Line struct to which characters will be written
+ * \param File which characters are read from
+ * \return Array of characters read from file
+ * \author MF
+ */
 char* get_line_from_file(int file_link);
 
 /**
@@ -47,8 +51,8 @@ char get_new_character_from_file(int file);
 
 /** \brief Read line from file
  *
- * \param Line struct to which characters will be written
- * \param File which characters are read from
+ * \param line Line struct to which characters will be written
+ * \param file File which characters are read from
  * \return Array of characters read from file
  * \author MF
  */
