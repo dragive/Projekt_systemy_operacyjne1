@@ -2,8 +2,7 @@
 #include "singleLine.h"
 
 
-/**
- * @brief Function used to open input file for reading
+/** @brief Function used to open input file for reading
  * Function where there would be error will print to stderr details, or will open file
  * @return int Value returned is 0 if error occured, else number representing pinter to file
  * @author MF
@@ -15,8 +14,7 @@ int open_to_read_file(const char *  file_name){
     return status;
 
 }
-/**
- * @brief Function used to open output file for appending
+/** @brief Function used to open output file for appending
  * Function where there would be error will print to stderr details, or will open file
  * @return int Value returned is 0 if error occured, else number representing pinter to file
  * @see open_to_read_input_file()
@@ -29,20 +27,28 @@ int open_to_append_file(const char *  file_name){
     return status;
 
 }
-/*
-Krzysiek jeżeli masz czas to też proszę zobacz tą funkcję
+/** \brief Use it to read line from file
+ *
+ * \param file_link File which line will be read from
+ * \return Function returns singleLine struct object with read line
+ *
+ */
 
-*/
-char* get_line_from_file(int file_link){
-        /**
-         * propably this function's to be implementd as readint 1 B from file and checking whether it is end of line or not
-         * it is signed as \r\n so checking \r char will be enough
-         * PLS USE single line struct to automaticly check buffor and lenght of line
-         */
+singleLine* get_line_from_file(int file_link){
+    singleLine sl = (singleLine*) malloc(sizeof(singleLine));
+    char read;
+    while(1){
+        read = get_new_character_from_file(file_link);
+        if(read=='\r'){get_new_character_from_file(file_link);break;}
+        else if (read =='\0')break;
+        else{
+            add_char_to_singleLine(sl,read);
+        }
+    }
+    return sl;
 }
 
-/**
- * @brief Get the new character from file
+/** @brief Get the new character from file
  *
  * @param file File which character will be read from
  * @return char Character read from file
