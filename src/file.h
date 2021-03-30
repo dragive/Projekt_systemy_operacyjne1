@@ -64,6 +64,13 @@ int check_line_format(char* input_line);
 /*Krzysiek i struct*/
 char ** split_command_line(char* input_line);
 
+/**
+ * @brief Function used to open input file for reading
+ * @return int Value returned is file descriptor
+ * @author Krzysztof Funkowski
+ */
+int open_read_file(const char* file_str);
+
 int convert_singleLine_to_struct();
 
 void sort_input_lines(char**);

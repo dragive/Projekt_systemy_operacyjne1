@@ -27,24 +27,29 @@ int open_to_append_file(const char *  file_name){
     return status;
 
 }
-/** \brief Use it to read line from file
+/** @brief Use it to read line from file
  *
- * \param file_link File which line will be read from
- * \return Function returns singleLine struct object with read line
- *
+ * @param file_link File which line will be read from
+ * @return Function returns singleLine struct object with read line
+ * @author KF
  */
 
 singleLine* get_line_from_file(int file_link){
-    singleLine sl = (singleLine*) malloc(sizeof(singleLine));
+    singleLine* sl = (singleLine*) malloc(sizeof(singleLine));
     char read;
-    while(1){
+    while((read = get_new_character_from_file(file_link))!='\n')
+    {
+        add_char_to_singleLine(sl,read);
+    }
+    /*while(1){
         read = get_new_character_from_file(file_link);
+        printf("brr");
         if(read=='\r'){get_new_character_from_file(file_link);break;}
         else if (read =='\0')break;
         else{
             add_char_to_singleLine(sl,read);
         }
-    }
+    }*/
     return sl;
 }
 
@@ -52,11 +57,16 @@ singleLine* get_line_from_file(int file_link){
  *
  * @param file File which character will be read from
  * @return char Character read from file
+ * @authot KF
  */
 char get_new_character_from_file(int file){
-
-    return read(file,1,sizeof(char));
-
+    char* buffer = (char*)malloc(sizeof(char));
+    ssize_t c;
+    if(c = read(file,buffer,1)>0)
+    {
+        return buffer[0];
+    }
+    return 'x';
 }
 
 /** \brief Read line from file
@@ -94,6 +104,21 @@ char ** split_command_line(char* input_line);
 int convert_singleLine_to_struct();
 
 void sort_input_lines(char**);
+
+
+/**
+ * @brief Function used to open input file for reading
+ * @return int Value returned is file descriptor. If error occurs, return value -1.
+ * @author Krzysztof Funkowski
+ */
+int open_read_file(const char* file_str)
+{
+    int file;
+    if((file = open(file_str, O_RDONLY))==-1) return -1;
+
+    return file;
+}
+
 
 
 /*
