@@ -16,6 +16,12 @@
 #include "singleLine.h"
 
 
+typedef struct
+{
+    char * value;    /** Pointer to table of chars read from file */
+    int size_max;               /** Max size which can be currently stored */
+    int size_current;           /** Current number of characters, e.g. 0 if there's nothing and 1 if there's 1 character*/
+}singleLine;
 /**
  * @brief Function used to open input file for reading
  * Function where there would be error will print to stderr details, or will open file
@@ -32,14 +38,6 @@ int open_to_read_file(const char *  file_name);
  */
 int open_to_append_file(const char *  file_name);
 
-/** \brief Read line from file
- *
- * \param Line struct to which characters will be written
- * \param File which characters are read from
- * \return Array of characters read from file
- * \author MF
- */
-char* get_line_from_file(int file_link);
 
 /**
  * @brief Get the new character from file
@@ -47,16 +45,15 @@ char* get_line_from_file(int file_link);
  * @param file File which character will be read from
  * @return char Character read from file
  */
-char get_new_character_from_file(int file);
+char get_new_character_from_file(int);
 
 /** \brief Read line from file
  *
- * \param line Line struct to which characters will be written
- * \param file File which characters are read from
- * \return Array of characters read from file
+ * \param file_link int representing file opened
+ * \return singleLine struckt with characters read from file
  * \author MF
  */
-char* get_line_from_file(singleLine *line,int file);
+singleLine* get_line_from_file(int file_link){
 
 /*@assgined to Kacper*/
 int check_line_format(char* input_line);

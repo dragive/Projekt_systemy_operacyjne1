@@ -48,6 +48,5 @@ int parse_arguments(int argc, char *argv[]){
 int get_local_time();
 
 int main(int argc, char *argv[]){
-    get_new_character_from_file(2137);
 
 }

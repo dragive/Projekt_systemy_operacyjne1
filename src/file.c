@@ -1,6 +1,6 @@
 #include <unistd.h>
 #include "singleLine.h"
-
+#include "file.h"
 
 /** @brief Function used to open input file for reading
  * Function where there would be error will print to stderr details, or will open file
@@ -10,7 +10,7 @@
 int open_to_read_file(const char *  file_name){
 
     int status = open(file_name,"r");
-    if ( status == 0 ) perror("File open to read error");
+    if ( status == 0 ) perror("File open to read");
     return status;
 
 }
@@ -23,7 +23,7 @@ int open_to_read_file(const char *  file_name){
 int open_to_append_file(const char *  file_name){
 
     int status = open(file_name,"a+");
-    if ( status == 0 ) perror("File open to write error");
+    if ( status == 0 ) perror("File open to write");
     return status;
 
 }
@@ -34,9 +34,25 @@ int open_to_append_file(const char *  file_name){
  *
  */
 
+
+/** @brief Get the new character from file
+ *
+ * @param file File which character will be read from
+ * @return char Character read from file
+ */
+char get_new_character_from_file(int file){
+    char ret;
+    read(file,&ret,sizeof(char));
+    return ret;
+
+}
+
 singleLine* get_line_from_file(int file_link){
-    singleLine sl = (singleLine*) malloc(sizeof(singleLine));
+    singleLine* sl = (singleLine*) malloc(sizeof(singleLine));
     char read;
+    sl->size_current=0;
+    sl->size_max = 0;
+    sl->value = NULL;
     while(1){
         read = get_new_character_from_file(file_link);
         if(read=='\r'){get_new_character_from_file(file_link);break;}
@@ -48,17 +64,7 @@ singleLine* get_line_from_file(int file_link){
     return sl;
 }
 
-/** @brief Get the new character from file
- *
- * @param file File which character will be read from
- * @return char Character read from file
- */
-char get_new_character_from_file(int file){
-
-    return read(file,1,sizeof(char));
-
-}
-
+/*
 /** \brief Read line from file
  *
  * \param Line struct to which characters will be written
@@ -66,7 +72,7 @@ char get_new_character_from_file(int file){
  * \return Array of characters read from file
  * \author MF
  */
-
+/*
 char* get_line_from_file(singleLine *line,int file){
     if(line == NULL){
         line = (singleLine*) malloc(sizeof(singleLine));
@@ -80,11 +86,12 @@ char* get_line_from_file(singleLine *line,int file){
             break;
         }
 
+
     }
 
     return singleLine.pointer_to_value;
 
-}
+}*/
 /*@assgined to Kacper*/
 int check_line_format(char* input_line);
 
@@ -99,25 +106,8 @@ void sort_input_lines(char**);
 /*
 params are structs containing parsed command line
 */
-int compare_two_lines_based_on_time(                       );
+int compare_two_lines_based_on_time();
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+int main(){}
