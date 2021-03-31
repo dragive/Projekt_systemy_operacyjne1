@@ -51,13 +51,13 @@ int main(int argc, char** argv)
     int file,status=0;
     char* file_str = "testowy.txt";
     if((file = open_read_file(file_str))==-1) return -1;
-    struct singleLine* sl = NULL;
+    singleLine* sl = NULL;
     //sl = get_line_from_file(file,&status);
     //if(sl != NULL) printf("%s\n",sl->value);
     while(status==0)
     {
         sl = get_line_from_file(file,&status);
-        if(sl != NULL) printf("%s\n",singleLine_get_value(sl));
+        if(sl != NULL) printf("%s\n",sl->value);
         free(sl);
     }
     close(file);

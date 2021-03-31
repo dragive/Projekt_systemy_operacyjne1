@@ -55,33 +55,7 @@ int main(int argc, char** argv)
     int i,pid,child_pid;
     char str[12]="abc";
     char *args[] = {"echo","3",NULL};
-    /*for(int i=0;i<5;i++)
-    {
-        sprintf(str,"%d",i);
-        pid = fork();
-        if(pid == 0)
-        {
-            child_pid = fork();
-            if(child_pid == 0)
-            {
-                execlp("sleep","sleep","3", NULL);
-                exit(0);
-            }
-            else
-            {
-                printf("CHILD CHILD END\n");
-                wait(NULL);
-            }
-            printf("CHILD END\n");
-            execvp("echo",args);
-            exit(0);
-        }
-        else
-        {
-            wait(NULL);
-            printf("PARENT END\n");
-        }
-    }*/
+
     pthread_t tid[3];
     singleLine sl[3];
     sl[0].size_max=5;

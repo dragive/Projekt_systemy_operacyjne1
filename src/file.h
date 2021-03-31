@@ -54,7 +54,7 @@ char get_new_character_from_file(int file,int* status);
  * @return line from file
  * @author KF
  */
-struct singleLine* get_line_from_file(int file_link,int* status);
+singleLine* get_line_from_file(int file_link,int* status);
 
 
 
