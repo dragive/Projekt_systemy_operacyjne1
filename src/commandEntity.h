@@ -14,12 +14,7 @@
 
 /** \brief Structure of command entity
  */
-typedef struct command_struct
-{
-    int time;
-    char *command;
-    char *parameter;
-}command_struct;
+typedef struct command_struct command_struct;
 
 /** \brief Allocating memory for new command entity, then parsing array of strings to command entity.
  *
@@ -37,5 +32,13 @@ command_struct* convert_command_to_struct(char** splitted_command_line);
  *
  */
 int remaining_time_to_execution(command_struct* command_line);
+
+int command_get_time(command_struct* command_line);
+
+char* command_get_command(command_struct* command_line);
+
+char* command_get_parameter(command_struct* command_line);
+
+void free_command(command_struct* command);
 
 #endif // COMMANDENTITY_H_INCLUDED

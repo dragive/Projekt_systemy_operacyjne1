@@ -11,16 +11,15 @@
 #ifndef SINGLELINE_INCLUDED
 #define SINGLELINE_INCLUDED
 
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+
 /**
  * @brief Struct representing single line read from file.
  *
  */
-typedef struct singleLine
-{
-    char * value;    /** Pointer to table of chars read from file */
-    int size_max;               /** Max size which can be currently stored */
-    int size_current;           /** Current number of characters, e.g. 0 if there's nothing and 1 if there's 1 character*/
-};
+typedef struct singleLine singleLine;
 
 /** \brief Function adds character to singleLine
  *
@@ -37,4 +36,12 @@ void add_char_to_singleLine(singleLine * sl,char c);
  * \author MF
  */
 void extend_buffor_singleLine(singleLine* sl);
+
+int singleLine_get_size_max(singleLine* sl);
+
+int singleLine_get_size_current(singleLine* sl);
+
+char* singleLine_get_value(singleLine* sl);
+
+
 #endif // SINGLELINE_INCLUDED

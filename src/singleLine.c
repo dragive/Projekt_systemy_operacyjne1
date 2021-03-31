@@ -10,18 +10,16 @@
  */
 #include <unistd.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "singleLine.h"
 
-/**
- * @brief Struct representing single line read from file.
- *
- */
-typedef struct singleLine
+struct singleLine
 {
-    char * value;       /** Pointer to table of chars read from file */
-    int size_max;       /** Max size which can be currently stored */
-    int size_current;   /** Current number of characters, e.g. 0 if there's nothing and 1 if there's 1 character*/
-} singleLine;
+    char * value;    /** Pointer to table of chars read from file */
+    int size_max;               /** Max size which can be currently stored */
+    int size_current;           /** Current number of characters, e.g. 0 if there's nothing and 1 if there's 1 character*/
+};
+
 
 /** \brief Function extends buffor in single line
  *
@@ -58,4 +56,19 @@ void add_char_to_singleLine(singleLine * sl,char c){
     }
     sl->value[sl->size_current++] = c;
     sl->value[sl->size_current] = '\0';
+}
+
+int singleLine_get_size_max(singleLine* sl)
+{
+    return sl->size_max;
+}
+
+int singleLine_get_size_current(singleLine* sl)
+{
+    return sl->size_current;
+}
+
+char* singleLine_get_value(singleLine* sl)
+{
+    return sl->value;
 }
