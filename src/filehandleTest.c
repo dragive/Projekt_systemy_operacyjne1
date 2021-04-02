@@ -7,9 +7,9 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include "file.h"
+#include "commandEntity.h"
 
-
-/*void* threading_func(void* vargp)
+void* threading_func(void* vargp)
 {
     int i,pid,child_pid,time;
     singleLine* sl = (singleLine*)vargp;
@@ -42,7 +42,7 @@
         }
 
 
-}*/
+}
 
 int main(int argc, char** argv)
 {

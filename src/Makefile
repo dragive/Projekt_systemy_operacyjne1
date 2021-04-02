@@ -1,5 +1,5 @@
-output: filehandleTest.o singleLine.o file.o
-	gcc filehandleTest.o singleLine.o file.o -o output
+output: filehandleTest.o singleLine.o file.o commandEntity.o dayTime.o
+	gcc filehandleTest.o singleLine.o file.o commandEntity.o dayTime.o -o output
 
 functionalitiesTest.o: functionalitiesTest.c
 	gcc -c functionalitiesTest.c
