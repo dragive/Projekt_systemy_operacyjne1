@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "dayTime.h"
+//#include "dayTime.h"
 #include "commandEntity.h"
 
 /** \brief Function splits string to array of strings that representing particular objects
@@ -80,7 +80,7 @@ int main(int argc, char** argv)
     {
         printf("%s\n",tab[i]);
     }
-    printf("%d %s %s %d\n",command_get_time(command_line),command_get_command(command_line),command_get_parameter(command_line),remaining_time_to_execution(command_line));
+    printf("%d %s %s %d\n",command_line->time,command_line->command,command_line->parameter,remaining_time_to_execution(command_line));
 
     for(i=0;i<4;i++)
     {

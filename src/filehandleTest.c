@@ -7,9 +7,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include "file.h"
-#include "singleLine.h"
-#include "commandEntity.h"
-#include "dayTime.h"
+
 
 /*void* threading_func(void* vargp)
 {

@@ -14,13 +14,6 @@
 #include <string.h>
 #include "dayTime.h"
 
-struct command_struct
-{
-    int time;
-    char *command;
-    char *parameter;
-};
-
 /** \brief Allocating memory for new command entity, then parsing array of strings to command entity.
  *
  * \param splitted_command_line array of strings to parse into command entity
@@ -55,20 +48,6 @@ int remaining_time_to_execution(command_struct* command_line)
     return (temp>=0)?temp:-1;
 }
 
-int command_get_time(command_struct* command_line)
-{
-    return command_line->time;
-}
-
-char* command_get_command(command_struct* command_line)
-{
-    return command_line->command;
-}
-
-char* command_get_parameter(command_struct* command_line)
-{
-    return command_line->parameter;
-}
 
 void free_command(command_struct* command)
 {

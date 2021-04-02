@@ -8,8 +8,8 @@
  * @copyright Copyright (c) 2021
  *
  */
-#ifndef SINGLELINE_INCLUDED
-#define SINGLELINE_INCLUDED
+#ifndef FILE_INCLUDED
+#define FILE_INCLUDED
 
 
 #include <unistd.h>

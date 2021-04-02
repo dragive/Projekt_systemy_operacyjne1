@@ -19,7 +19,11 @@
  * @brief Struct representing single line read from file.
  *
  */
-typedef struct singleLine singleLine;
+typedef struct {
+char* value;
+int size_max;
+int size_current;
+}singleLine;
 
 /** \brief Function adds character to singleLine
  *
@@ -36,12 +40,6 @@ void add_char_to_singleLine(singleLine * sl,char c);
  * \author MF
  */
 void extend_buffor_singleLine(singleLine* sl);
-
-int singleLine_get_size_max(singleLine* sl);
-
-int singleLine_get_size_current(singleLine* sl);
-
-char* singleLine_get_value(singleLine* sl);
 
 
 #endif // SINGLELINE_INCLUDED
