@@ -1,3 +1,6 @@
-ala ma
-kota
-kot ma ale
+12:31:echo 2:1
+13:42:echo 15:1
+21:31:echo 2:1
+23:25:echo 125:1
+01:29:echo 123:1
+01:45:echo 121:1

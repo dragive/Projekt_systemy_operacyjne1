@@ -20,6 +20,14 @@ char* command;
 char* parameter;
 }command_struct;
 
+/** \brief Structure of array of command entity
+ */
+typedef struct {
+    command_struct** command_entity;
+    int size_current;
+    int size_max;
+}command_array;
+
 /** \brief Allocating memory for new command entity, then parsing array of strings to command entity.
  *
  * \param splitted_command_line array of strings to parse into command entity
@@ -36,6 +44,10 @@ command_struct* convert_command_to_struct(char** splitted_command_line);
  *
  */
 int remaining_time_to_execution(command_struct* command_line);
+
+void init_command_struct_array(command_array *array, int size);
+
+command_struct** extend_command_line_array(command_array* array, int size);
 
 void free_command(command_struct* command);
 

@@ -17,7 +17,7 @@
 /** \brief Function extends buffor in single line
  *
  * \param sl singleLine struct object which buffor will be extended
- * \author KF
+ * \author MF
  */
 void extend_buffor_singleLine(singleLine* sl){
     char * temp = (char* ) malloc(sizeof(char)*sl->size_max+10);
@@ -32,7 +32,7 @@ void extend_buffor_singleLine(singleLine* sl){
  *
  * \param sl singleLine struct object which line will be written to from file
  * \param c character which will be added to singleLine
- * \author KF
+ * \author MF
  */
 void add_char_to_singleLine(singleLine * sl,char c){
     if(sl == NULL){

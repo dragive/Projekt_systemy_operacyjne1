@@ -63,10 +63,21 @@ singleLine* get_line_from_file(int file_link,int* status);
 /*@assgined to Kacper*/
 //int check_line_format(char* input_line);
 
-/** \brief Function splits string to array of strings that representing particular objects
+/** @brief Function splits string to array of strings that representing particular objects
  *
- * \param input_line line that will be converted to array of strings
- * \return array of strings
+ * @param input_line line that will be converted to array of strings
+ * @param number_of_words number of words that array will contain
+ * @param separator words separator
+ * @return array of strings
+ * @author Krzysztof Funkowski
+ */
+char ** split(char* input_line, int number_of_words, char separator);
+
+/** @brief Function splits string to array of strings that representing particular objects to represent command line struct
+ *
+ * @param input_line line that will be converted to array of strings
+ * @return array of strings
+ * @author Krzysztof Funkowski
  */
 char ** split_command_line(char* input_line);
 
@@ -87,5 +98,5 @@ params are structs containing parsed command line
 */
 //int compare_two_lines_based_on_time(                       );
 
-#endif // SINGLELINE_INCLUDED
+#endif // FILE_INCLUDED
 

@@ -28,6 +28,7 @@ command_struct* convert_command_to_struct(char** splitted_command_line)
     command_line->time=temp*60;
     sscanf(splitted_command_line[1],"%d",&temp);
     command_line->time+=temp;
+    command_line->time=remaining_time_to_execution(command_line);
     command_line->command = (char*)malloc(strlen(splitted_command_line[2])*sizeof(char)+1);
     strcpy(command_line->command,splitted_command_line[2]);
     command_line->parameter = (char*)malloc(strlen(splitted_command_line[3])*sizeof(char)+1);
@@ -48,10 +49,43 @@ int remaining_time_to_execution(command_struct* command_line)
     return (temp>=0)?temp:-1;
 }
 
+void init_command_struct_array(command_array* array, int size)
+{
+    array->command_entity = (command_struct**)malloc(size*sizeof(command_struct*));
+    array->size_current=0;
+    array->size_max=size;
+}
 
+//DO POPRAWKI
+command_struct** extend_command_line_array(command_array* array,int size)
+{
+    array->size_max;
+    int new_size_max=array->size_max+size;
+    command_struct** new = (command_struct**)malloc((new_size_max)*sizeof(command_struct*));
+    int i=0;
+    for(i=0;i<array->size_max;i++)
+    {
+        new[i] = (command_struct*)malloc(sizeof(command_struct));
+        new[i]->command = (char*)malloc(strlen(array->command_entity[i]->command)+1);
+        new[i]->parameter = (char*)malloc(strlen(array->command_entity[i]->parameter)+1);
+        strcpy(new[i]->command,array->command_entity[i]->command);
+        strcpy(new[i]->parameter,array->command_entity[i]->parameter);
+        new[i]->time=array->command_entity[i]->time;
+    }
+    free(array->command_entity);
+    array->command_entity=NULL;
+    array->size_max=new_size_max;
+    return new;
+}
+
+/** \brief Using to free memory
+ *
+ * \param command_line command entity pointer to free
+ * \author KF
+ */
 void free_command(command_struct* command)
 {
-    free(command->command);
-    free(command->parameter);
+    if(command->command!=NULL) free(command->command);
+    if(command->parameter!=NULL) free(command->parameter);
     free(command);
 }

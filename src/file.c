@@ -88,12 +88,12 @@ singleLine* get_line_from_file(int file_link,int* status){
  * \param input_line line that will be converted to array of strings
  * \return array of strings
  */
-char ** split_command_line(char* input_line)
+char ** split(char* input_line, int number_of_words, char separator)
 {
-    int i=0, length=0, word=0, words_count=4;
-    char** str_tab = (char**)malloc(words_count*sizeof(char*));
+    int i=0, length=0, word=0;
+    char** str_tab = (char**)malloc(number_of_words*sizeof(char*));
     char* temp_str;
-    for(i=0; i<words_count;i++)
+    for(i=0; i<number_of_words;i++)
     {
         str_tab[i] = (char*)malloc(strlen(input_line)*sizeof(char));
     }
@@ -102,7 +102,7 @@ char ** split_command_line(char* input_line)
 
     while(input_line[i]!='\0')
     {
-        if(input_line[i]==':')
+        if(input_line[i]==separator)
         {
             str_tab[word][length]='\0';
             //str_tab[word][length-1]='\0';
@@ -126,6 +126,28 @@ char ** split_command_line(char* input_line)
     str_tab[word]=temp_str;*/
     return str_tab;
 }
+
+//DO POPRAWY
+char ** split_command_line(char* input_line)
+{
+    int i=0, length=0, word=0, words_count=4;
+    char** str_tab = (char**)malloc(words_count*sizeof(char*));
+    char* temp_str;
+    for(i=0; i<words_count;i++)
+    {
+        str_tab[i] = (char*)malloc(strlen(input_line)*sizeof(char));
+    }
+    /*memcpy(str_tab[0],&input_line[0],2);
+    str_tab[0][3]='\0';
+    memcpy(str_tab[1],&input_line[3],2);
+    str_tab[1][3]='\0';
+    memcpy(str_tab[2],&input_line[6],strlen(input_line)-5);
+    str_tab[2][3]='\0';
+    memcpy(str_tab[3],&input_line[strlen(input_line)-1],1);
+    str_tab[3][2]='\0';*/
+    return str_tab;
+}
+
 
 //int convert_singleLine_to_struct();
 
