@@ -2,7 +2,8 @@
 #include "singleLine.h"
 
 
-/** @brief Function used to open input file for reading
+/**
+ * @brief Function used to open input file for reading
  * Function where there would be error will print to stderr details, or will open file
  * @return int Value returned is 0 if error occured, else number representing pinter to file
  * @author MF
@@ -14,7 +15,8 @@ int open_to_read_file(const char *  file_name){
     return status;
 
 }
-/** @brief Function used to open output file for appending
+/**
+ * @brief Function used to open output file for appending
  * Function where there would be error will print to stderr details, or will open file
  * @return int Value returned is 0 if error occured, else number representing pinter to file
  * @see open_to_read_input_file()
@@ -27,28 +29,20 @@ int open_to_append_file(const char *  file_name){
     return status;
 
 }
-/** \brief Use it to read line from file
- *
- * \param file_link File which line will be read from
- * \return Function returns singleLine struct object with read line
- *
- */
+/*
+Krzysiek jeżeli masz czas to też proszę zobacz tą funkcję
 
-singleLine* get_line_from_file(int file_link){
-    singleLine sl = (singleLine*) malloc(sizeof(singleLine));
-    char read;
-    while(1){
-        read = get_new_character_from_file(file_link);
-        if(read=='\r'){get_new_character_from_file(file_link);break;}
-        else if (read =='\0')break;
-        else{
-            add_char_to_singleLine(sl,read);
-        }
-    }
-    return sl;
+*/
+char* get_line_from_file(int file_link){
+        /**
+         * propably this function's to be implementd as readint 1 B from file and checking whether it is end of line or not
+         * it is signed as \r\n so checking \r char will be enough
+         * PLS USE single line struct to automaticly check buffor and lenght of line
+         */
 }
 
-/** @brief Get the new character from file
+/**
+ * @brief Get the new character from file
  *
  * @param file File which character will be read from
  * @return char Character read from file
@@ -86,7 +80,53 @@ char* get_line_from_file(singleLine *line,int file){
 
 }
 /*@assgined to Kacper*/
-int check_line_format(char* input_line);
+int check_line_format(char* input_line){
+    size_t lenght = strlen(input_line);
+    char hours, minutes, info;
+    hours = input_line[0]+input_line[1];
+    info = input_line[lenght];
+    int hours_temp = charToInt(hours);
+    int test=0;
+    int info_temp = atoi(info);
+    if(hours_temp>=0 && hours_temp<=23)
+    {
+        minutes = input_line[3]+input_line[4];
+        int minutes_temp = charToInt(minutes);
+        if(minutes_temp>=0 && minutes_temp<=59)
+        {
+            for(int i=6;i<=lenght-1;i++)
+            {
+                if(input_line[i]!="")
+                {
+                    test++;
+                }
+                if(test>0)
+                {
+                    if(info_temp>=0 && info_temp<=2)
+                    {
+                        printf("Jest git");
+                    }
+                    else
+                    {
+                        return 4;
+                    }
+                }
+                else
+                {
+                    return 3;
+                }
+            }
+        }
+        else
+        {
+            return 2;
+        }
+    }
+    else
+    {
+        return 1;
+    }
+}
 
 /*Krzysiek i struct*/
 char ** split_command_line(char* input_line);
