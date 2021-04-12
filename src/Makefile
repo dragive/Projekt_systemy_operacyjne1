@@ -1,5 +1,5 @@
-output: filehandleTest.o singleLine.o file.o commandEntity.o dayTime.o
-	gcc filehandleTest.o singleLine.o file.o commandEntity.o dayTime.o -lpthread -o output
+output: filehandleTest.o singleLine.o file.o commandEntity.o dayTime.o multithreading.o
+	gcc filehandleTest.o singleLine.o file.o commandEntity.o dayTime.o multithreading.o -lpthread -o output
 
 functionalitiesTest.o: functionalitiesTest.c
 	gcc -c functionalitiesTest.c
@@ -9,6 +9,9 @@ filehandleTest.o: filehandleTest.c
 
 multithreadingTest.o: multithreadingTest.c
 	gcc -c multithreadingTest.c
+
+multithreading.o: multithreading.c multithreading.h
+	gcc -c -lpthread multithreading.c
 
 dayTime.o: dayTime.c dayTime.h
 	gcc -c dayTime.c
