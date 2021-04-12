@@ -44,10 +44,19 @@ int parse_arguments(int argc, char *argv[]){
 
 }
 
-/**TODO*/
-int get_local_time();
+/** \brief Get the remaining time to execute the command
+ *
+ * \param command_line command entity needed to get it's time for calculations
+ * \return remaining time from now to execute the command
+ * \author Krzysztof Funkowski
+ */
+int remaining_time_to_execution(command_struct* command_line)
+{
+    int temp = command_line->time - get_time_in_sec();
+    return (temp>=0)?temp:-1;
+}
+
 
 int main(int argc, char *argv[]){
-    get_new_character_from_file(2137);
 
 }
