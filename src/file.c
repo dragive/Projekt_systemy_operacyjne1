@@ -127,26 +127,49 @@ char ** split(char* input_line, int number_of_words, char separator)
     return str_tab;
 }
 
-//DO POPRAWY
-char ** split_command_line(char* input_line)
+
+//cut part of a string potem zrobie ladny opis maciej nie bij
+//jak dasz len na minusie to uwala od indeksu do konca
+int str_cut(char *str, int begin, int len)
 {
-    int i=0, length=0, word=0, words_count=4;
-    char** str_tab = (char**)malloc(words_count*sizeof(char*));
-    char* temp_str;
-    for(i=0; i<words_count;i++)
-    {
-        str_tab[i] = (char*)malloc(strlen(input_line)*sizeof(char));
-    }
-    /*memcpy(str_tab[0],&input_line[0],2);
-    str_tab[0][3]='\0';
-    memcpy(str_tab[1],&input_line[3],2);
-    str_tab[1][3]='\0';
-    memcpy(str_tab[2],&input_line[6],strlen(input_line)-5);
-    str_tab[2][3]='\0';
-    memcpy(str_tab[3],&input_line[strlen(input_line)-1],1);
-    str_tab[3][2]='\0';*/
-    return str_tab;
+    int l = strlen(str);
+
+    if (len < 0) len = l - begin;
+    if (begin + len > l) len = l - begin;
+    memmove(str + begin, str + begin + len, l - len + 1);
+
+    return len;
 }
+
+//splituje dobrze
+char** split_command_line(const char* str)
+{
+    int i;
+    char** tab = (char**)malloc(4*sizeof(char*));
+    for(i=0;i<4;i++)
+    {
+        tab[i] = (char*)malloc(sizeof(char)*(strlen(str)+1));
+    }
+
+    for(i=0;i<4;i++)
+    {
+        strcpy(tab[i],str);
+    }
+
+    //godzina
+    str_cut(tab[0],2,-1);
+    //minuty
+    str_cut(tab[1],0,3);
+    str_cut(tab[1],2,-1);
+    //komenda
+    str_cut(tab[2],0,6);
+    str_cut(tab[2],strlen(tab[2])-2,2);
+    //parametr
+    str_cut(tab[3],0,strlen(tab[3])-1);
+
+    return tab;
+}
+
 
 
 //int convert_singleLine_to_struct();

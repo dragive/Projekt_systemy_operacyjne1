@@ -73,13 +73,18 @@ singleLine* get_line_from_file(int file_link,int* status);
  */
 char ** split(char* input_line, int number_of_words, char separator);
 
+//cut part of a string potem zrobie ladny opis maciej nie bij
+int str_cut(char *str, int begin, int len);
+
 /** @brief Function splits string to array of strings that representing particular objects to represent command line struct
  *
  * @param input_line line that will be converted to array of strings
  * @return array of strings
  * @author Krzysztof Funkowski
  */
-char ** split_command_line(char* input_line);
+char** split_command_line(const char* str);
+
+
 
 /**
  * @brief Function used to open input file for reading
