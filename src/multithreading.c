@@ -14,7 +14,7 @@
 
 void* threading_func(void* vargp)
 {
-    int i,pid,child_pid,time;
+    int pid;
     command_struct* command = (command_struct*)vargp;
     char** string_array=split(command->command,2,' ');
     char ch[1];
@@ -26,24 +26,11 @@ void* threading_func(void* vargp)
     pid = fork();
     if(pid == 0)
     {
-        child_pid = fork();
-        if(child_pid == 0)
-        {
-            execlp("sleep","sleep",string_array[1], NULL);
-            exit(0);
-        }
-        else
-        {
-            //printf("CHILD CHILD END\n");
-            wait(NULL);
-        }
-        //printf("CHILD END\n");
         execvp(string_array[0],args);
         exit(0);
     }
     else
     {
         wait(NULL);
-        //printf("PARENT END\n");
     }
 }

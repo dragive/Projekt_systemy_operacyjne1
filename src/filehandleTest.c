@@ -43,7 +43,7 @@ int main(int argc, char** argv)
         sl = get_line_from_file(file,&status);
         if(sl != NULL) 
         {
-            splitted_array=split(sl->value,4,':');
+            splitted_array=split_command_line(sl->value);
             //printf("SIZE: %d\n",array.size_current);
             if(array.size_current==array.size_max) {array.command_entity=extend_command_line_array(&array,5);}
             array.command_entity[array.size_current++]=convert_command_to_struct(splitted_array);
@@ -53,8 +53,8 @@ int main(int argc, char** argv)
 
     for(i=0;i<array.size_current;i++)
     {
-        pthread_create(&tid[i],NULL,threading_func,array.command_entity[i]);
-        //printf("%s %s %d\n",array.command_entity[i]->command,array.command_entity[i]->parameter,array.command_entity[i]->time);
+        //pthread_create(&tid[i],NULL,threading_func,array.command_entity[i]);
+        printf("%s %s %d\n",array.command_entity[i]->command,array.command_entity[i]->parameter,array.command_entity[i]->time);
     }
     pthread_exit(NULL);
     /*for(i=0;i<array.size_max;i++)
