@@ -17,5 +17,8 @@
  */
 int get_time_in_sec();
 
+int get_time_to_full_minute();
+
+int get_time_to_next_iteration();
 
 #endif // DAYTIME_H_INCLUDED

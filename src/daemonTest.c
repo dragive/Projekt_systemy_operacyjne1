@@ -21,6 +21,7 @@
 #include "commandEntity.h"
 #include "multithreading.h"
 
+//working
 typedef struct {
     pthread_t* tid;
     int size_current;
@@ -34,7 +35,7 @@ void init_thread_array(thread_array* array, int size)
     array->size_max=size;
 }
 
-void swap_for_men_with_big_dick(command_struct* x, command_struct* y)
+void swap(command_struct* x, command_struct* y)
 {
     command_struct temp;
     temp = *x;
@@ -42,19 +43,41 @@ void swap_for_men_with_big_dick(command_struct* x, command_struct* y)
     *y = temp;
 }
 
-void bubble_sort_bitch(command_array* array)
+void bubble_sort(command_array* array)
 {
     int i,j;
     for(i=0;i<array->size_current-1;i++)
     {
         for(j=0;j<array->size_current-i-1;j++)
         {
-            if(array->command_entity[j]->time > array->command_entity[j+1]->time) swap_for_men_with_big_dick(array->command_entity[j],array->command_entity[j+1]);
+            if(array->command_entity[j]->time > array->command_entity[j+1]->time) swap(array->command_entity[j],array->command_entity[j+1]);
         }
     }
 }
 
-void merge_times_to_one_timeline_or_kys(command_array* array)
+//testing
+void quicksort(command_array *array,int lewy,int prawy)
+{
+    int os=array->command_entity[(lewy+prawy)/2]->time;
+    int p,q;
+    p=lewy;
+    q=prawy;
+    do{
+        while (array->command_entity[p]->time<os) p++;
+        while (array->command_entity[q]->time>os) q--;
+        if(p<=q)
+        {
+            swap(array->command_entity[p],array->command_entity[q]);
+            p++;
+            q--;
+        }
+    }while(p<=q);
+
+    if(q>lewy) quicksort(tab,lewy,q);
+    if(p<prawy) quicksort(tab,p,prawy);
+}
+
+void merge_times_to_one_timeline(command_array* array)
 {
     int i;
     int time_sum=0;
@@ -99,8 +122,8 @@ int main(int argc, char** argv)
         free(sl);
     }
 
-    bubble_sort_bitch(&array);
-    merge_times_to_one_timeline_or_kys(&array);
+    bubble_sort(&array);
+    merge_times_to_one_timeline(&array);
     init_thread_array(&threads,array.size_current);
     i=0;
     while(1)
