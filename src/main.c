@@ -12,7 +12,7 @@
 #include <unistd.h>
 #include <string.h>
 #include "singleLine.h"
-#incldue "start_lib.h"
+#include "start_lib.h"
 
 /** \brief Get the remaining time to execute the command
  *
