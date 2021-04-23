@@ -25,9 +25,9 @@ command_struct* convert_command_to_struct(char** splitted_command_line)
     command_struct* command_line = (command_struct*)malloc(sizeof(command_struct));
     int temp;
     sscanf(splitted_command_line[0],"%d",&temp);
-    command_line->time=temp*60;
+    command_line->time=temp*60*60;
     sscanf(splitted_command_line[1],"%d",&temp);
-    command_line->time+=temp;
+    command_line->time+=temp*60;
     command_line->time=remaining_time_to_execution(command_line);
     command_line->command = (char*)malloc(strlen(splitted_command_line[2])*sizeof(char)+1);
     strcpy(command_line->command,splitted_command_line[2]);

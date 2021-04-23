@@ -25,20 +25,30 @@ int get_time_in_sec()
     gettimeofday(&tv, NULL);
     t = tv.tv_sec;
     current_time = localtime(&t);
-    return current_time->tm_hour*60+current_time->tm_min;
+    return current_time->tm_hour*60*60+current_time->tm_min*60;
 }
 
-//testing
-int get_time_to_full_minute()
+//to powinno dzialac
+/*int get_time_to_full_minute()
 {
     struct timeval tv;
     struct tm *current_time;
     time_t t;
     gettimeofday(&tv, NULL);
     current_time = localtime(&t);
-    return 60 - current_time->tm_sec;
+    int sec = 0;
+    sec = (int)current_time->tm_sec;
+    return sec;
+}*/
+
+//to dziala
+int get_time_to_full_minute(int time)
+{
+    
+    return 60 - time%60 -1;
 }
 
+//to dziala
 int get_time_to_next_iteration(int start_time)
 {
     struct timeval tv;

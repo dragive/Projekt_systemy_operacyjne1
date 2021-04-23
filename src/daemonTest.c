@@ -20,6 +20,7 @@
 #include "file.h"
 #include "commandEntity.h"
 #include "multithreading.h"
+#include "dayTime.h"
 
 //working
 typedef struct {
@@ -73,8 +74,8 @@ void quicksort(command_array *array,int lewy,int prawy)
         }
     }while(p<=q);
 
-    if(q>lewy) quicksort(tab,lewy,q);
-    if(p<prawy) quicksort(tab,p,prawy);
+    if(q>lewy) quicksort(array,lewy,q);
+    if(p<prawy) quicksort(array,p,prawy);
 }
 
 void merge_times_to_one_timeline(command_array* array)
@@ -99,8 +100,8 @@ void merge_times_to_one_timeline(command_array* array)
 
 int main(int argc, char** argv)
 {
-    int file,status=0,line_count=0,i;
-    char* file_str = "testowy2.txt";
+    int file,status=0,line_count=0,i,start_time;
+    char* file_str = "testowy.txt";
     char** splitted_array;
     if((file = open_read_file(file_str))==-1) return -1;
     
@@ -122,26 +123,30 @@ int main(int argc, char** argv)
         free(sl);
     }
 
-    bubble_sort(&array);
+    quicksort(&array,0,array.size_current-1);
     merge_times_to_one_timeline(&array);
-    init_thread_array(&threads,array.size_current);
-    i=0;
-    while(1)
+    //init_thread_array(&threads,array.size_current);
+    i = 0;
+    start_time =  get_time_in_sec();
+    printf("%d\n=====================\n",start_time);
+    printf("%d\n=====================\n",get_time_to_full_minute(get_time_to_next_iteration(start_time)));
+    printf("%d\n=====================\n",get_time_to_next_iteration(start_time));
+    /*while(1)
     {
         if(array.command_entity[i]->time>=0)
         {
-            sleep(array.command_entity[i]->time*60);
+            sleep(array.command_entity[i]->time);
             pthread_create(&threads.tid[i],NULL,threading_func,array.command_entity[i]);
         }
         i++;
         if(i==array.size_current) break;
-    }
+    }*/
 
-    /*for(i=0;i<array.size_current;i++)
+    for(i=0;i<array.size_current;i++)
     {
         //pthread_create(&threads.tid[i],NULL,threading_func,array.command_entity[i]);
         printf("%s %s %d\n",array.command_entity[i]->command,array.command_entity[i]->parameter,array.command_entity[i]->time);
-    }*/
+    }
     pthread_exit(NULL);
     free(array.command_entity);
     close(file);
