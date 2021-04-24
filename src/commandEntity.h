@@ -51,4 +51,10 @@ command_struct** extend_command_line_array(command_array* array, int size);
 
 void free_command(command_struct* command);
 
+void swap(command_struct* x, command_struct* y);
+
+void quicksort(command_array *array,int lewy,int prawy);
+
+void merge_times_to_one_timeline(command_array* array);
+
 #endif // COMMANDENTITY_H_INCLUDED

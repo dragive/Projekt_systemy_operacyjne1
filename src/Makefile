@@ -1,8 +1,8 @@
-output: daemonTest.o singleLine.o file.o commandEntity.o dayTime.o multithreading.o
-	gcc daemonTest.o singleLine.o file.o commandEntity.o dayTime.o multithreading.o -lpthread -o output
+output: daemonTest.o singleLine.o file.o commandEntity.o dayTime.o multithreading.o daemon_start.o
+	gcc daemonTest.o singleLine.o file.o commandEntity.o dayTime.o multithreading.o daemon_start.o -lpthread -o output
 
-functionalitiesTest.o: functionalitiesTest.c
-	gcc -c functionalitiesTest.c
+ultimateGamerVersion.o: ultimateGamerVersion.c
+	gcc -c ultimateGamerVersion.c
 
 filehandleTest.o: filehandleTest.c
 	gcc -c filehandleTest.c
@@ -30,6 +30,12 @@ singleLine.o: singleLine.c singleLine.h
 
 newFile.o: newFile.c newFile.h singleLine.c singleLine.h
 	gcc -c newFile.c
+
+start_lib.o: start_lib.c start_lib.h
+	gcc -c start_lib.c
+
+daemon_start.o: daemon_start.c daemon_start.h
+	gcc -c daemon_start.c
 
 clean:
 	rm *.o output

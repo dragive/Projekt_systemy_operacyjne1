@@ -11,10 +11,20 @@
 #ifndef MULTITHREADING_H_INCLUDED
 #define MULTITHREADING_H_INCLUDED
 
+#include <pthread.h>
+
+typedef struct {
+    pthread_t* tid;
+    int size_current;
+    int size_max;
+}thread_array;
 
 /** \brief Threading function
  */
 void* threading_func(void* vargp);
 
+void init_thread_array(thread_array* array, int size);
+
+int command_count_words(char* input);
 
 #endif // MULTITHREADING_H_INCLUDED

@@ -89,3 +89,52 @@ void free_command(command_struct* command)
     if(command->parameter!=NULL) free(command->parameter);
     free(command);
 }
+
+void swap(command_struct* x, command_struct* y)
+{
+    command_struct temp;
+    temp = *x;
+    *x = *y;
+    *y = temp;
+}
+
+void quicksort(command_array *array,int lewy,int prawy)
+{
+    int os=array->command_entity[(lewy+prawy)/2]->time;
+    int p,q;
+    p=lewy;
+    q=prawy;
+    do{
+        while (array->command_entity[p]->time<os) p++;
+        while (array->command_entity[q]->time>os) q--;
+        if(p<=q)
+        {
+            swap(array->command_entity[p],array->command_entity[q]);
+            p++;
+            q--;
+        }
+    }while(p<=q);
+
+    if(q>lewy) quicksort(array,lewy,q);
+    if(p<prawy) quicksort(array,p,prawy);
+}
+
+void merge_times_to_one_timeline(command_array* array)
+{
+    int i;
+    int time_sum=0;
+    int flag=0;
+    for(i=0;i<array->size_current;i++)
+    {
+        if(array->command_entity[i]->time > 0 && flag == 1)
+        {
+            array->command_entity[i]->time = array->command_entity[i]->time - time_sum;
+            time_sum += array->command_entity[i]->time;
+        }
+        else if(array->command_entity[i]->time > 0 && flag == 0)
+        {
+            time_sum += array->command_entity[i]->time;
+            flag=1;
+        }
+    }
+}

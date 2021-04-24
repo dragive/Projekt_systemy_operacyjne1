@@ -1,9 +1,9 @@
 /**
- * @file filehandleTest.c
+ * @file daemonTest.c
  * @author Krzysztof Funkowski
  * @brief File for testing functionalities
  * @version 0.1
- * @date 2021-03-22
+ * @date 2021-04-22
  *
  * @copyright Copyright (c) 2021
  *
@@ -22,86 +22,11 @@
 #include "multithreading.h"
 #include "dayTime.h"
 
-//working
-typedef struct {
-    pthread_t* tid;
-    int size_current;
-    int size_max;
-}thread_array;
-
-void init_thread_array(thread_array* array, int size)
-{
-    array->tid = (pthread_t*)malloc(size*sizeof(pthread_t));
-    array->size_current=0;
-    array->size_max=size;
-}
-
-void swap(command_struct* x, command_struct* y)
-{
-    command_struct temp;
-    temp = *x;
-    *x = *y;
-    *y = temp;
-}
-
-void bubble_sort(command_array* array)
-{
-    int i,j;
-    for(i=0;i<array->size_current-1;i++)
-    {
-        for(j=0;j<array->size_current-i-1;j++)
-        {
-            if(array->command_entity[j]->time > array->command_entity[j+1]->time) swap(array->command_entity[j],array->command_entity[j+1]);
-        }
-    }
-}
-
-//testing
-void quicksort(command_array *array,int lewy,int prawy)
-{
-    int os=array->command_entity[(lewy+prawy)/2]->time;
-    int p,q;
-    p=lewy;
-    q=prawy;
-    do{
-        while (array->command_entity[p]->time<os) p++;
-        while (array->command_entity[q]->time>os) q--;
-        if(p<=q)
-        {
-            swap(array->command_entity[p],array->command_entity[q]);
-            p++;
-            q--;
-        }
-    }while(p<=q);
-
-    if(q>lewy) quicksort(array,lewy,q);
-    if(p<prawy) quicksort(array,p,prawy);
-}
-
-void merge_times_to_one_timeline(command_array* array)
-{
-    int i;
-    int time_sum=0;
-    int flag=0;
-    for(i=0;i<array->size_current;i++)
-    {
-        if(array->command_entity[i]->time > 0 && flag == 1)
-        {
-            array->command_entity[i]->time = array->command_entity[i]->time - time_sum;
-            time_sum += array->command_entity[i]->time;
-        }
-        else if(array->command_entity[i]->time > 0 && flag == 0)
-        {
-            time_sum += array->command_entity[i]->time;
-            flag=1;
-        }
-    }
-}
 
 int main(int argc, char** argv)
 {
     int file,status=0,line_count=0,i,start_time;
-    char* file_str = "testowy.txt";
+    char* file_str = "testowy2.txt";
     char** splitted_array;
     if((file = open_read_file(file_str))==-1) return -1;
     
@@ -125,13 +50,15 @@ int main(int argc, char** argv)
 
     quicksort(&array,0,array.size_current-1);
     merge_times_to_one_timeline(&array);
-    //init_thread_array(&threads,array.size_current);
+    array.command_entity[0]->time -= 60;
+    init_thread_array(&threads,array.size_current);
     i = 0;
     start_time =  get_time_in_sec();
     printf("%d\n=====================\n",start_time);
     printf("%d\n=====================\n",get_time_to_full_minute(get_time_to_next_iteration(start_time)));
     printf("%d\n=====================\n",get_time_to_next_iteration(start_time));
-    /*while(1)
+    sleep(get_time_to_full_minute(get_time_to_next_iteration(start_time)));
+    while(1)
     {
         if(array.command_entity[i]->time>=0)
         {
@@ -140,13 +67,14 @@ int main(int argc, char** argv)
         }
         i++;
         if(i==array.size_current) break;
-    }*/
-
-    for(i=0;i<array.size_current;i++)
-    {
-        //pthread_create(&threads.tid[i],NULL,threading_func,array.command_entity[i]);
-        printf("%s %s %d\n",array.command_entity[i]->command,array.command_entity[i]->parameter,array.command_entity[i]->time);
+        //sleep(get_time_to_next_iteration(start_time));
     }
+
+    /*for(i=0;i<array.size_current;i++)
+    {
+        pthread_create(&threads.tid[i],NULL,threading_func,array.command_entity[i]);
+        //printf("%s %s %d %d\n",array.command_entity[i]->command,array.command_entity[i]->parameter,array.command_entity[i]->time,command_count_words(array.command_entity[i]->command));
+    }*/
     pthread_exit(NULL);
     free(array.command_entity);
     close(file);
