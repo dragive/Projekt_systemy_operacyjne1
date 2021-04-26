@@ -31,7 +31,7 @@ int daemon2()
         exit(1);
     }
 // Change the current working directory to root.
-    chdir("/");
+    //chdir("/");
 // Close stdin. stdout and stderr
     close(STDIN_FILENO);
     //close(STDOUT_FILENO);
