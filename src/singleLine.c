@@ -37,6 +37,7 @@ void extend_buffor_singleLine(singleLine* sl){
 void add_char_to_singleLine(singleLine * sl,char c){
     if(sl == NULL){
         sl = (singleLine*) malloc(sizeof(singleLine));
+        sl->value=NULL;
     }
     if(sl->value == NULL){
         sl->size_max = 10;

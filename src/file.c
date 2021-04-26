@@ -62,6 +62,7 @@ char get_new_character_from_file(int file,int* status){
  */
 singleLine* get_line_from_file(int file_link,int* status){
     singleLine* sl = (singleLine*) malloc(sizeof(singleLine));
+    sl->value=NULL;
     char read;
     while((read = get_new_character_from_file(file_link,status))!='\n')
     {
@@ -130,7 +131,7 @@ char ** split(char* input_line, int number_of_words, char separator)
 
 //cut part of a string potem zrobie ladny opis maciej nie bij
 //jak dasz len na minusie to uwala od indeksu do konca
-int str_cut(char *str, int begin, int len)
+/*int str_cut(char *str, int begin, int len)
 {
     int l = strlen(str);
 
@@ -139,10 +140,18 @@ int str_cut(char *str, int begin, int len)
     memmove(str + begin, str + begin + len, l - len + 1);
 
     return len;
+}*/
+
+void move_kasiu_stringi_dla_krzysia_off(char * str, int shift){
+	if(shift>0){
+		for(int i =0;i<=strlen(str)-shift;i++){
+			str[i]=str[i+shift];		
+		}
+}
 }
 
 //splituje dobrze
-char** split_command_line(const char* str)
+/*char** split_command_line(const char* str)
 {
     int i;
     char** tab = (char**)malloc(4*sizeof(char*));
@@ -168,9 +177,31 @@ char** split_command_line(const char* str)
     str_cut(tab[3],0,strlen(tab[3])-1);
 
     return tab;
+}*/
+
+char** split_command_line(const char* str)
+{
+    int i;
+    char** tab = (char**)malloc(4*sizeof(char*));
+    tab[0] = (char*)malloc(3*sizeof(char));
+    tab[1] = (char*)malloc(3*sizeof(char));
+    tab[2] = (char*)malloc((strlen(str)-7)*sizeof(char));
+    tab[3] = (char*)malloc(2*sizeof(char));
+    tab[0][0]=str[0];
+    tab[0][1]=str[1];
+    tab[1][0]=str[3];
+    tab[1][1]=str[4];
+    tab[0][2]='\0';
+    tab[1][2]='\0';
+    tab[3][0]=str[strlen(str)-1];
+    tab[3][1]='\0';
+    for(i=6;i<strlen(str)-2;i++)
+    {
+        tab[2][i-6]=str[i];
+    }
+    tab[2][strlen(str)-2-6]='\0';
+    return tab;
 }
-
-
 
 //int convert_singleLine_to_struct();
 
@@ -185,17 +216,10 @@ char** split_command_line(const char* str)
 int open_read_file(const char* file_str)
 {
     int file;
-    if((file = open(file_str, O_RDONLY))==-1) return -1;
+    if((file = open(file_str, O_RDONLY))<0) return -1;
 
     return file;
 }
-
-
-
-/*
-params are structs containing parsed command line
-*/
-//int compare_two_lines_based_on_time(                       );
 
 
 
