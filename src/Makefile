@@ -1,8 +1,8 @@
-output: ultimateGamerVersion.o singleLine.o file.o commandEntity.o dayTime.o multithreading.o start_lib.o
-	gcc -g ultimateGamerVersion.o singleLine.o file.o commandEntity.o dayTime.o multithreading.o start_lib.o -lpthread -o output
+output: main.o singleLine.o file.o commandEntity.o dayTime.o multithreading.o start_lib.o
+	gcc -g main.o singleLine.o file.o commandEntity.o dayTime.o multithreading.o start_lib.o -lpthread -o output
 
-ultimateGamerVersion.o: ultimateGamerVersion.c
-	gcc -g -c ultimateGamerVersion.c
+main.o: main.c
+	gcc -g -c main.c
 
 filehandleTest.o: filehandleTest.c
 	gcc -g -c filehandleTest.c
