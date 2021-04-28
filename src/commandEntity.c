@@ -18,6 +18,7 @@
  *
  * \param splitted_command_line array of strings to parse into command entity
  * \return pointer to converted command entity
+ * \author KF
  *
  */
 command_struct* convert_command_to_struct(char** splitted_command_line)
@@ -36,19 +37,26 @@ command_struct* convert_command_to_struct(char** splitted_command_line)
     return command_line;
 }
 
-/** \brief Get the remaining time to execute the command
+/** \brief Get the remaining time to execute the command in secounds. If invoke of command is set to time before start of program, set time to -1.
  *
  * \param command_line command entity needed to get it's time for calculations
  * \return remaining time from now to execute the command
+ * \author KF
  *
  */
-
 int remaining_time_to_execution(command_struct* command_line)
 {
     int temp = command_line->time - get_time_in_sec();
     return (temp>=0)?temp:-1;
 }
 
+/** \brief Initializing struct that contains an array of command entity.
+ *
+ * \param array Array of command entities.
+ * \param size Current max size of an array.
+ * \author KF
+ *
+ */
 void init_command_struct_array(command_array* array, int size)
 {
     array->command_entity = (command_struct**)malloc(size*sizeof(command_struct*));
@@ -56,7 +64,13 @@ void init_command_struct_array(command_array* array, int size)
     array->size_max=size;
 }
 
-//DO POPRAWKI
+/** \brief Extending number of elements in struct.
+ *
+ * \param array Array of command entities.
+ * \param size Describes amount of element for extend and array.
+ * \author KF
+ *
+ */
 command_struct** extend_command_line_array(command_array* array,int size)
 {
     array->size_max;
@@ -90,6 +104,12 @@ void free_command(command_struct* command)
     free(command);
 }
 
+/** \brief Swapping command entities with eachother
+ *
+ * \param x command entity pointer to swap
+ * \param y command entity pointer to swap
+ * \author KF
+ */
 void swap(command_struct* x, command_struct* y)
 {
     command_struct temp;
@@ -98,12 +118,22 @@ void swap(command_struct* x, command_struct* y)
     *y = temp;
 }
 
-void quicksort(command_array *array,int lewy,int prawy)
+/** \brief Function for sorting command entities in order by remaining time to execution. Function is using quicksort alghoritm.
+ *
+ * \param array array of command entities
+ * \param left left beginning of the interval
+ * \param right left beginning of the interval
+ * \author KF
+ */
+void quicksort(command_array *array,int left,int right)
 {
-    int os=array->command_entity[(lewy+prawy)/2]->time;
+    //choose pivot
+    int os=array->command_entity[(left+right)/2]->time;
     int p,q;
-    p=lewy;
-    q=prawy;
+    p=left;
+    q=right;
+
+    //quicksort algorithm
     do{
         while (array->command_entity[p]->time<os) p++;
         while (array->command_entity[q]->time>os) q--;
@@ -115,22 +145,32 @@ void quicksort(command_array *array,int lewy,int prawy)
         }
     }while(p<=q);
 
-    if(q>lewy) quicksort(array,lewy,q);
-    if(p<prawy) quicksort(array,p,prawy);
+    if(q>left) quicksort(array,left,q);
+    if(p<right) quicksort(array,p,right);
 }
 
+/** \brief Function for merging command entities times to one timeline to prevent incorrect time read.
+ *
+ * \param array array of command entities
+ * \author KF
+ */
 void merge_times_to_one_timeline(command_array* array)
 {
     int i;
     int time_sum=0;
     int flag=0;
+
+    //search for first positive value time
     for(i=0;i<array->size_current;i++)
     {
+        //if time is positive and flag equals to 1 than from current time subtract sum of times checked and in next step add this time to checked sum of time
         if(array->command_entity[i]->time > 0 && flag == 1)
         {
             array->command_entity[i]->time = array->command_entity[i]->time - time_sum;
             time_sum += array->command_entity[i]->time;
         }
+
+        //add this time to checked sum of time and set flag to 1
         else if(array->command_entity[i]->time > 0 && flag == 0)
         {
             time_sum += array->command_entity[i]->time;
@@ -139,12 +179,20 @@ void merge_times_to_one_timeline(command_array* array)
     }
 }
 
+/** \brief Correcting first positive number of time in entities to get correct timing in main.
+ *
+ * \param array array of command entities
+ * \author KF
+ */
 void correct_first_time(command_array* array)
 {
     int i;
     for(i=0;i<array->size_current;i++)
     {
+        //if time of current command entity is between 0 and 59 than just break. We don't need to modify first time
         if(array->command_entity[i]->time>=0 && array->command_entity[i]->time<60) break;
+
+        //if time is greater than 0  than subtract from time value 60 and break.
         else if(array->command_entity[i]->time>0)
         {
             array->command_entity[i]->time -= 60;
