@@ -19,20 +19,6 @@ int i;
 
 command_array array;
 
-void correct_first_time(command_array* array)
-{
-    int i;
-    for(i=0;i<array->size_current;i++)
-    {
-        if(array->command_entity[i]->time>=0 && array->command_entity[i]->time<60) break;
-        else if(array->command_entity[i]->time>0)
-        {
-            array->command_entity[i]->time -= 60;
-            break;
-        }
-    }
-}
-
 
 void sig_handler(int signum)
 {
@@ -53,16 +39,18 @@ void sig_handler(int signum)
     }
 }
 
-int main()
+int main(int argc, char** argv)
 {
     openlog("output", 0, LOG_USER);
     daemon2();
+    parse_arguments(argc,argv);
     syslog(LOG_NOTICE, "Daemon started.");
     signal(SIGINT,sig_handler);
     signal(SIGUSR1,sig_handler);
     signal(SIGUSR2,sig_handler);
     int file,status=0,line_count=0,start_time,j;
-    char* file_str = "testowy2.txt";
+    //char* file_str = "testowy2.txt";
+    char* file_str = get_input_file_name();
     char** splitted_array;
     if((file = open_read_file(file_str))==-1) 
     {

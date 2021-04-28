@@ -1,1 +1,1 @@
-grep output /var/log/syslog
+grep -a output /var/log/syslog

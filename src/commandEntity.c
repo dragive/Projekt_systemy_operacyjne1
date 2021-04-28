@@ -138,3 +138,17 @@ void merge_times_to_one_timeline(command_array* array)
         }
     }
 }
+
+void correct_first_time(command_array* array)
+{
+    int i;
+    for(i=0;i<array->size_current;i++)
+    {
+        if(array->command_entity[i]->time>=0 && array->command_entity[i]->time<60) break;
+        else if(array->command_entity[i]->time>0)
+        {
+            array->command_entity[i]->time -= 60;
+            break;
+        }
+    }
+}

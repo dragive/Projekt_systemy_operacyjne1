@@ -10,33 +10,6 @@
 #include "file.h"
 
 
-
-/** @brief Function used to open input file for reading
- * Function where there would be error will print to stderr details, or will open file
- * @return int Value returned is 0 if error occured, else number representing pinter to file
- * @author MF
- */
-/*int open_to_read_file(const char *  file_name){
-
-    int status = open(file_name,"r");
-    if ( status == 0 ) perror("File open to read error");
-    return status;
-
-}*/
-/** @brief Function used to open output file for appending
- * Function where there would be error will print to stderr details, or will open file
- * @return int Value returned is 0 if error occured, else number representing pinter to file
- * @see open_to_read_input_file()
- * @author MF
- */
-/*int open_to_append_file(const char *  file_name){
-
-    int status = open(file_name,"a+");
-    if ( status == 0 ) perror("File open to write error");
-    return status;
-
-}*/
-
 /** @brief Get the new character from file and if reach end of file than change status.
  *
  * @param file File which character will be read from
@@ -106,10 +79,6 @@ char ** split(char* input_line, int number_of_words, char separator)
         if(input_line[i]==separator)
         {
             str_tab[word][length]='\0';
-            //str_tab[word][length-1]='\0';
-            /*temp_str=str_tab[word];
-            memmove(temp_str,str_tab[word]+1,strlen(str_tab[word]));
-            str_tab[word]=temp_str;*/
             word++;
             length=0;
         }
@@ -121,63 +90,21 @@ char ** split(char* input_line, int number_of_words, char separator)
         i++;
     }
     str_tab[word][length]='\0';
-    //str_tab[word][length-1]='\0';
-    /*temp_str=str_tab[word];
-    memmove(temp_str,str_tab[word]+1,strlen(str_tab[word]));
-    str_tab[word]=temp_str;*/
     return str_tab;
 }
 
 
-//cut part of a string potem zrobie ladny opis maciej nie bij
-//jak dasz len na minusie to uwala od indeksu do konca
-/*int str_cut(char *str, int begin, int len)
+
+void move_kasiu_stringi_dla_krzysia_off(char * str, int shift)
 {
-    int l = strlen(str);
-
-    if (len < 0) len = l - begin;
-    if (begin + len > l) len = l - begin;
-    memmove(str + begin, str + begin + len, l - len + 1);
-
-    return len;
-}*/
-
-void move_kasiu_stringi_dla_krzysia_off(char * str, int shift){
-	if(shift>0){
-		for(int i =0;i<=strlen(str)-shift;i++){
-			str[i]=str[i+shift];		
-		}
-}
+    if(shift>0)
+    {
+        for(int i =0;i<=strlen(str)-shift;i++){
+            str[i]=str[i+shift];		
+        }
+    }
 }
 
-//splituje dobrze
-/*char** split_command_line(const char* str)
-{
-    int i;
-    char** tab = (char**)malloc(4*sizeof(char*));
-    for(i=0;i<4;i++)
-    {
-        tab[i] = (char*)malloc(sizeof(char)*(strlen(str)+1));
-    }
-
-    for(i=0;i<4;i++)
-    {
-        strcpy(tab[i],str);
-    }
-
-    //godzina
-    str_cut(tab[0],2,-1);
-    //minuty
-    str_cut(tab[1],0,3);
-    str_cut(tab[1],2,-1);
-    //komenda
-    str_cut(tab[2],0,6);
-    str_cut(tab[2],strlen(tab[2])-2,2);
-    //parametr
-    str_cut(tab[3],0,strlen(tab[3])-1);
-
-    return tab;
-}*/
 
 char** split_command_line(const char* str)
 {
@@ -202,10 +129,6 @@ char** split_command_line(const char* str)
     tab[2][strlen(str)-2-6]='\0';
     return tab;
 }
-
-//int convert_singleLine_to_struct();
-
-//void sort_input_lines(char**);
 
 
 /**

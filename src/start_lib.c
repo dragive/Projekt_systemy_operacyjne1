@@ -60,14 +60,16 @@ char* output_file;
  * @return int Indicator whether process of parsing arugments gone well. When it's ok then 0, else something gone wrong.
  * @author MF
  */
-int parse_arguments(int argc, char *argv[]){
+int parse_arguments(int argc, char **argv){
     if( argc < 3 ) {
         return 3-argc;
     }
-    else if (argc >3){
+    else if (argc > 3){
         return argc;
     }
     else{
+        input_file=(char*)malloc((strlen(argv[1])+1)*sizeof(char));
+        output_file=(char*)malloc((strlen(argv[2])+1)*sizeof(char));
         strcpy(input_file,argv[1]);
         strcpy(output_file,argv[2]);
     }
@@ -93,13 +95,3 @@ char* get_output_file_name(){
     return output_file;
 }
 
-/** \brief function to log actions
- *
- * \param message Message to be writen to log system file
- *
- */
-
-void logg(char* message){
-        /// IMPORTANT!!!!!!!!!        PUT IN IN THE FIRST LIEN OF MAIN openlog("programname", 0, LOG_USER);
-        syslog(LOG_INFO, "%s", message);
-}

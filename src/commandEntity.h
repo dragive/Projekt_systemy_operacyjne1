@@ -57,4 +57,6 @@ void quicksort(command_array *array,int lewy,int prawy);
 
 void merge_times_to_one_timeline(command_array* array);
 
+void correct_first_time(command_array* array);
+
 #endif // COMMANDENTITY_H_INCLUDED

@@ -31,6 +31,6 @@ char* get_output_file_name();
 
 char* get_input_file_name();
 
-int parse_arguments(int argc, char *argv[]);
+int parse_arguments(int argc, char **argv);
 
 #endif // START_LIB_INCLUDED
