@@ -44,7 +44,7 @@ int get_time_in_sec()
 //to dziala
 int get_time_to_full_minute(int time)
 {
-    return 60 - time%60 -1;
+    return time%60;
 }
 
 //to dziala

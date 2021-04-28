@@ -9,6 +9,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <pthread.h>
+#include <syslog.h>
 #include "file.h"
 #include "commandEntity.h"
 
@@ -23,10 +24,8 @@ void* threading_func(void* vargp)
 {
     int i,pid,count;
     command_struct* command = (command_struct*)vargp;
-    count=command_count_words(command->command);
+    count=command_count_words(command->command,' ');
     char** string_array=split(command->command,count,' ');
-
-    //char *args[] = {string_array[0],string_array[1],NULL};
     char **args = (char**)malloc((count+1)*sizeof(char*));
     for(i = 0; i < count ; i++)
     {
@@ -55,22 +54,33 @@ void* threading_func(void* vargp)
     }
 }
 
-int command_count_words(char* input)
+void* write_remaining_to_file(void* vargp)
+{
+    command_array* array = (command_array*)vargp;
+    extern int i;
+    int j;
+    for(j=i;j<array->size_current;j++)
+    {
+        syslog(LOG_NOTICE,"Remaining Task: %s",array->command_entity[j]->command);
+    }
+}
+
+int command_count_words(char* input,char sep)
 {
     int n = strlen(input);
     //printf("1");
     int ret= 0;
     for(int i =0;i<n&&input[i]!='\0';i++){
             //printf("1");
-        if(ret==0){if(input[i]!=' ')ret=1;continue;}
+        if(ret==0){if(input[i]!=sep)ret=1;continue;}
         //printf("1");
-        if(input[i]==' '){
+        if(input[i]==sep){
                 //printf("2");
-                while(i<n&&input[i]==' '&&input[i]!='\0'){
+                while(i<n&&input[i]==sep&&input[i]!='\0'){
                     i++;continue;
                 }
         //printf("3");
-                if(i<n&&input[i]!=' '&&input!='\0'){ret++;}
+                if(i<n&&input[i]!=sep&&input!='\0'){ret++;}
 
         }
     }

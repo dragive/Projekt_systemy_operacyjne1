@@ -23,8 +23,10 @@ typedef struct {
  */
 void* threading_func(void* vargp);
 
+void* write_remaining_to_file(void* vargp);
+
 void init_thread_array(thread_array* array, int size);
 
-int command_count_words(char* input);
+int command_count_words(char* input,char sep);
 
 #endif // MULTITHREADING_H_INCLUDED

@@ -57,7 +57,7 @@ int main(int argc, char** argv)
     printf("%d\n=====================\n",start_time);
     printf("%d\n=====================\n",get_time_to_full_minute(get_time_to_next_iteration(start_time)));
     printf("%d\n=====================\n",get_time_to_next_iteration(start_time));
-    sleep(get_time_to_full_minute(get_time_to_next_iteration(start_time)));
+    /*sleep(get_time_to_full_minute(get_time_to_next_iteration(start_time)));
     while(1)
     {
         if(array.command_entity[i]->time>=0)
@@ -68,13 +68,13 @@ int main(int argc, char** argv)
         i++;
         if(i==array.size_current) break;
         //sleep(get_time_to_next_iteration(start_time));
-    }
+    }*/
 
-    /*for(i=0;i<array.size_current;i++)
+    for(i=0;i<array.size_current;i++)
     {
         pthread_create(&threads.tid[i],NULL,threading_func,array.command_entity[i]);
         //printf("%s %s %d %d\n",array.command_entity[i]->command,array.command_entity[i]->parameter,array.command_entity[i]->time,command_count_words(array.command_entity[i]->command));
-    }*/
+    }
     pthread_exit(NULL);
     free(array.command_entity);
     close(file);
