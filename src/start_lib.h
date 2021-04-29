@@ -12,6 +12,14 @@
 #ifndef START_LIB_INCLUDED
 #define START_LIB_INCLUDED
 
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <sys/wait.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 
 /** \brief Function to run program as daemon
