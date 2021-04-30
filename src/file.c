@@ -27,13 +27,13 @@
  * @author KF
  */
 char get_new_character_from_file(int file,int* status){
-    char* buffer = (char*)malloc(sizeof(char));
+    char buffer;
     ssize_t c;
     ///reading character until read function returns 0
-    if(c = read(file,buffer,1)>0)
+    if(c = read(file,&buffer,1)>0)
     {
         ///returning read character
-        return buffer[0];
+        return buffer;
     }
     /// when 0 bytes is read, status 1 is set
     *status=1;
@@ -124,6 +124,7 @@ char ** split(char* input_line, int number_of_words, char separator)
  *
  * \param str Line from file in char table form.
  * \return table of different fields in commands
+ * @author Krzysztof Funkowski & Maciej Fender
  */
 
 char** split_command_line(const char* str)

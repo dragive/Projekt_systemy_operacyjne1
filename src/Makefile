@@ -4,9 +4,6 @@ output: main.o singleLine.o file.o commandEntity.o dayTime.o multithreading.o st
 main.o: main.c
 	gcc -g -c main.c
 
-filehandleTest.o: filehandleTest.c
-	gcc -g -c filehandleTest.c
-
 daemonTest.o: daemonTest.c
 	gcc -g -c daemonTest.c
 

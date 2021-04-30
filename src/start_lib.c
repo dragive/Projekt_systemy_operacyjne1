@@ -20,7 +20,7 @@
  */
 int daemon2()
 {
-    int debug= 1;
+    int debug= 0;
     pid_t process_id = 0;
     pid_t sid = 0;
     /// Create child process

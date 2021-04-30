@@ -1,3 +1,2 @@
-23:06:echo 1:1
-23:07:echo 2:3
-23:19:ls -l|wc -l:1
+23:23:ls -l|head -n 5|wc -l:1
+23:24:ls -l|head -n 2|wc -l:1

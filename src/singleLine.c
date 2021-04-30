@@ -21,7 +21,7 @@
  */
 void extend_buffor_singleLine(singleLine* sl){
     ///allocating bigger buffor
-    char * temp = (char* ) malloc(sizeof(char)*sl->size_max+10);
+    char * temp = (char* ) malloc(sizeof(char)*(sl->size_max+10));
     ///rewriting to bigger buffor from source
     for(int i = 0;i<sl->size_max;i++){
         temp[i] = sl->value[i];
