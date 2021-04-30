@@ -125,15 +125,6 @@ int initialize()
             i=0;
         }
     }
-    /*for(i=0;i<array.size_current;i++)
-    {
-        if(array.command_entity[i]->time>=0) 
-        {
-            sleep(array.command_entity[i]->time);
-            pthread_create(&threads.tid[i],NULL,threading_func,array.command_entity[i]);
-        }
-        //printf("%s %s %d\n",array.command_entity[i]->command,array.command_entity[i]->parameter,array.command_entity[i]->time);
-    }*/
 
     //free space
     free(array.command_entity);
