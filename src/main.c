@@ -119,9 +119,10 @@ int initialize()
         //if all commands executed
         if(i==array.size_current)
         {
-            break;
+            //break;
             //wait to next day to iterate over commands again
-            //sleep(get_time_to_next_iteration(start_time));
+            sleep(get_time_to_next_iteration(start_time));
+            i=0;
         }
     }
     /*for(i=0;i<array.size_current;i++)
